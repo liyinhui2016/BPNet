@@ -8,7 +8,7 @@ import java.util.List;
  * 树突
  * Created by yinhui on 2016/5/21.
  */
-public interface INode {
+public interface INode<WEIGHT extends IWeight> {
 
     /**
      * 输出函数
@@ -32,12 +32,12 @@ public interface INode {
      * 前置权重
      * @return
      */
-    List<? extends IWeight> frontWeights();
+    List<WEIGHT> frontWeights();
 
     /**
      * 后置权重
      * @return
      */
-    List<? extends IWeight> nextWeights();
+    List<WEIGHT> nextWeights();
 
 }

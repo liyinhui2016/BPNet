@@ -4,19 +4,19 @@ package com.chenjie.bpnet.comp.elem;
  * 轴突
  * Created by yinhui on 2016/5/21.
  */
-public interface IWeight {
+public interface IWeight<NODE extends INode> {
 
     /**
      * 前置树突
      * @return
      */
-    INode frontNode();
+    NODE frontNode();
 
     /**
      * 后置树突
      * @return
      */
-    INode nextNode();
+    NODE nextNode();
 
     /**
      * 权重

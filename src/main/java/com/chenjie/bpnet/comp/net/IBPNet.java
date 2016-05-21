@@ -1,33 +1,31 @@
 package com.chenjie.bpnet.comp.net;
 
-import com.chenjie.bpnet.comp.Layer.IHiddenLayer;
-import com.chenjie.bpnet.comp.Layer.IInputLayer;
-import com.chenjie.bpnet.comp.Layer.IOutputLayer;
+import com.chenjie.bpnet.comp.Layer.DefaultCommLayer;
 
 import java.util.List;
 
 /**
  * Created by yinhui on 2016/5/21.
  */
-public interface IBPNet {
+public interface IBPNet<IN extends DefaultCommLayer,HI extends DefaultCommLayer ,OUT extends DefaultCommLayer> {
 
     /**
      * 输入层
      * @return
      */
-    IInputLayer inputLayer();
+    IN inputLayer();
 
     /**
      * 输出层
      * @return
      */
-    IOutputLayer outputLayer();
+    OUT outputLayer();
 
     /**
      * 隐藏层。
      * @return
      */
-    List<? extends IHiddenLayer> hiddenLayers();
+    List<HI> hiddenLayers();
 
     /**
      * 设置 结构。
@@ -47,6 +45,11 @@ public interface IBPNet {
      */
     void persist();
 
+
+    /**
+     * 初始化链接各层。
+     */
+    void initConnect();
 
 
 }

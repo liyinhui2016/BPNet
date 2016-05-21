@@ -7,13 +7,13 @@ import java.util.List;
 /**
  * Created by yinhui on 2016/5/21.
  */
-public class DefaultNode implements INode {
+public class DefaultNode implements INode<DefaultWeight> {
 
     private  double theta;
 
-    private  List<? extends IWeight> frontWeights;
+    private  List<DefaultWeight> frontWeights;
 
-    private  List<? extends IWeight> nextWeights;
+    private  List<DefaultWeight> nextWeights;
 
 
     @Override
@@ -32,12 +32,13 @@ public class DefaultNode implements INode {
     }
 
     @Override
-    public List<? extends IWeight> frontWeights() {
+    public List<DefaultWeight> frontWeights() {
         return frontWeights;
     }
 
     @Override
-    public List<? extends IWeight> nextWeights() {
+    public List<DefaultWeight> nextWeights() {
         return nextWeights;
     }
+
 }

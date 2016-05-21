@@ -3,19 +3,19 @@ package com.chenjie.bpnet.comp.elem;
 /**
  * Created by yinhui on 2016/5/21.
  */
-public class DefaultWeight implements IWeight {
+public class DefaultWeight implements IWeight<DefaultNode> {
 
     private double weight;
-    private  INode front;
-    private  INode next;
+    private  DefaultNode front;
+    private  DefaultNode next;
 
     @Override
-    public INode frontNode() {
+    public DefaultNode frontNode() {
         return front;
     }
 
     @Override
-    public INode nextNode() {
+    public DefaultNode nextNode() {
         return next;
     }
 
