@@ -3,6 +3,7 @@ package com.chenjie.bpnet.comp.net;
 import com.chenjie.bpnet.comp.Layer.DefaultCommLayer;
 
 import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * Created by yinhui on 2016/5/21.
@@ -50,6 +51,18 @@ public interface IBPNet<IN extends DefaultCommLayer,HI extends DefaultCommLayer 
      * 初始化链接各层。
      */
     void initConnect();
+
+    /**
+     * 初始化theta
+     * @return
+     */
+    Supplier<Double> thetaInit();
+
+    /**
+     * 初始化weight
+     * @return
+     */
+    Supplier<Double> weightInit();
 
 
 }

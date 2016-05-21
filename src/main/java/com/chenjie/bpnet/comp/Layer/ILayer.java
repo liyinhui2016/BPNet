@@ -26,4 +26,17 @@ public interface ILayer<NODE_T extends INode> {
      * @param node
      */
     void add( NODE_T node);
+
+    /**
+     * layer节点数
+     * @return
+     */
+    int size();
+
+    /**
+     * 后去第i个节点。
+     * @param i
+     * @return
+     */
+    NODE_T get(int i);
 }

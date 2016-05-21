@@ -2,6 +2,7 @@ package com.chenjie.bpnet.comp.elem;
 
 import com.chenjie.bpnet.function.IOutFunction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,5 +41,23 @@ public class DefaultNode implements INode<DefaultWeight> {
     public List<DefaultWeight> nextWeights() {
         return nextWeights;
     }
+
+    /**
+     * 设置前缀权重
+     * @param ws
+     */
+    public void setFrontWeights(List<DefaultWeight> ws){
+        this.frontWeights = ws;
+    }
+
+    /**
+     * 设置后置权重
+     * @param ws
+     */
+    public void setNextWeights(List<DefaultWeight> ws){
+        this.nextWeights = ws;
+    }
+
+
 
 }

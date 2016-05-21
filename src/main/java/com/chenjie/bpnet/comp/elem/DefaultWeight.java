@@ -28,4 +28,11 @@ public class DefaultWeight implements IWeight<DefaultNode> {
     public void setWeight( double weight) {
         this.weight = weight;
     }
+
+    public void setFront(DefaultNode node){
+        this.front = node;
+    }
+    public void setNext(DefaultNode node){
+        this.next = node;
+    }
 }

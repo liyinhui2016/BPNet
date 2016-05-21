@@ -36,4 +36,14 @@ public abstract class DefaultCommLayer implements ILayer<DefaultNode> {
     public void add(DefaultNode node) {
 
     }
+
+    @Override
+    public int size() {
+        return nodes==null?0:nodes.size();
+    }
+
+    @Override
+    public DefaultNode get(int i) {
+        return nodes==null?null:nodes.get(i);
+    }
 }
