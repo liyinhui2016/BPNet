@@ -1,9 +1,12 @@
 package com.chenjie.bpnet.function;
 
 import com.chenjie.bpnet.comp.net.AbsBPNet;
+import com.chenjie.bpnet.comp.net.DefaultBPNet;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.function.Supplier;
 
 /**
@@ -13,34 +16,16 @@ public class TestAbsBPNet {
 
     @Test
     public void testSetUp(){
-        AbsBPNet net = new AbsBPNet() {
-            @Override
-            public void train() {
 
-            }
-
-            @Override
-            public void persist() {
-
-            }
-
-            @Override
-            public Supplier<Double> thetaInit() {
-                return ()->Math.random();
-            }
-
-            @Override
-            public Supplier<Double> weightInit() {
-                return ()->Math.random();
-            }
-        };
-
-        net.setUp(3,new int []{2,0,6},2);
+        DefaultBPNet net = new DefaultBPNet();
+        net.setUp(3,new int []{2,0,4},2);
+        List<Double> pRes = net.predict(Arrays.asList(10d,199d,100d));
+        Assert.assertEquals(pRes.size()==2,true);
         Assert.assertEquals(net.inputLayer().size()==3,true);
         Assert.assertEquals(net.outputLayer().size()==2,true);
         Assert.assertEquals(net.hiddenLayers().size()==2,true);
         Assert.assertEquals(net.hiddenLayers().get(0).size()==2,true);
-        Assert.assertEquals(net.hiddenLayers().get(1).size()==6,true);
+        Assert.assertEquals(net.hiddenLayers().get(1).size()==4,true);
 
     }
 }

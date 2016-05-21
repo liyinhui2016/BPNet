@@ -2,6 +2,7 @@ package com.chenjie.bpnet.comp.net;
 
 import com.chenjie.bpnet.comp.Layer.DefaultCommLayer;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -64,5 +65,11 @@ public interface IBPNet<IN extends DefaultCommLayer,HI extends DefaultCommLayer 
      */
     Supplier<Double> weightInit();
 
+    /**
+     * 预测。
+     * @param input
+     * @return
+     */
+    List<Double> predict(List<Double> input);
 
 }
