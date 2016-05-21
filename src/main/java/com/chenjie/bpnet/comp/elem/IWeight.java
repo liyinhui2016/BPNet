@@ -1,4 +1,4 @@
-package com.chenjie.bpnet.comp;
+package com.chenjie.bpnet.comp.elem;
 
 /**
  * 轴突
@@ -17,4 +17,15 @@ public interface IWeight {
      * @return
      */
     INode nextNode();
+
+    /**
+     * 权重
+     * @return
+     */
+    double weight();
+
+    /**
+     * 设置权重
+     */
+    void  setWeight( double weight);
 }

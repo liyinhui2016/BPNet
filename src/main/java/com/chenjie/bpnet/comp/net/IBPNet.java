@@ -1,4 +1,8 @@
-package com.chenjie.bpnet.comp;
+package com.chenjie.bpnet.comp.net;
+
+import com.chenjie.bpnet.comp.Layer.IHiddenLayer;
+import com.chenjie.bpnet.comp.Layer.IInputLayer;
+import com.chenjie.bpnet.comp.Layer.IOutputLayer;
 
 import java.util.List;
 
@@ -26,6 +30,14 @@ public interface IBPNet {
     List<? extends IHiddenLayer> hiddenLayers();
 
     /**
+     * 设置 结构。
+     * @param input
+     * @param hidden
+     * @param out
+     */
+    void setUp(int input,int [] hidden,int out);
+
+    /**
      * bp训练
      */
     void train();
@@ -34,5 +46,7 @@ public interface IBPNet {
      * 持久化
      */
     void persist();
+
+
 
 }

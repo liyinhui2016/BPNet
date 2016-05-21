@@ -1,4 +1,4 @@
-package com.chenjie.bpnet.comp;
+package com.chenjie.bpnet.comp.elem;
 
 import com.chenjie.bpnet.function.IOutFunction;
 
@@ -21,6 +21,12 @@ public interface INode {
      * @return
      */
     double theta();
+
+    /**
+     * 设置偏置值
+     * @param theta
+     */
+    void setTheta(double theta);
 
     /**
      * 前置权重

@@ -1,4 +1,6 @@
-package com.chenjie.bpnet.comp;
+package com.chenjie.bpnet.comp.Layer;
+
+import com.chenjie.bpnet.comp.elem.INode;
 
 import java.util.List;
 
