@@ -70,20 +70,22 @@ public abstract class AbsBPNet implements IBPNet<InputLayer, HiddenLayer, Output
                 hiddenLayers.get(i).get(j).setNextWeights(new ArrayList<>());
             }
         }
-
         List<DefaultCommLayer> all = new ArrayList<>();
         all.add(inputLayer);
         all.addAll(hiddenLayers);
         all.add(outputLayer);
-
         //链接各层网络
         for (int i = 0; i < all.size()-1; ++i) {
             connect2(all.get(i),all.get(i+1));
         }
     }
 
+    /**
+     * //链接两层网络
+     * @param l1 ：前置层
+     * @param l2 ：后置层
+     */
     private void connect2(DefaultCommLayer l1, DefaultCommLayer l2) {
-        //链接两层网络
         for (int i = 0; i < l1.size(); ++i)
             l1.get(i).setTheta(this.thetaInit().get());
         for (int j = 0; j < l2.size(); ++j) {
