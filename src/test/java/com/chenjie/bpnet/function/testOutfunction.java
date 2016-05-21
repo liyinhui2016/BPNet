@@ -1,4 +1,4 @@
-package com.chenjie.bpnet.outfunction;
+package com.chenjie.bpnet.function;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by yinhui on 2016/5/21.
  */
-public class outfunction {
+public class TestOutfunction {
 
     @Test
     public void testIOutFunction(){

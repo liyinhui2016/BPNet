@@ -1,4 +1,4 @@
-package com.chenjie.bpnet.outfunction;
+package com.chenjie.bpnet.function;
 
 /**
  * Created by yinhui on 2016/5/21.

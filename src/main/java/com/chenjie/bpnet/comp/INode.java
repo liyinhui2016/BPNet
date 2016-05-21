@@ -1,6 +1,6 @@
 package com.chenjie.bpnet.comp;
 
-import com.chenjie.bpnet.outfunction.IOutFunction;
+import com.chenjie.bpnet.function.IOutFunction;
 
 import java.util.List;
 
