@@ -1,10 +1,10 @@
 package com.chenjie.bpnet.comp.net;
 
 import com.chenjie.bpnet.comp.Layer.DefaultCommLayer;
-import com.chenjie.bpnet.comp.data.TrainData;
+import com.chenjie.bpnet.comp.data.DefaultData;
+import com.chenjie.bpnet.comp.data.IData;
 import com.chenjie.bpnet.comp.elem.DefaultNode;
 import com.chenjie.bpnet.comp.elem.DefaultWeight;
-import com.chenjie.bpnet.comp.elem.INode;
 import com.chenjie.bpnet.function.Evaluate;
 import com.chenjie.bpnet.function.LinearCombine;
 import com.chenjie.bpnet.function.Reduce;
@@ -17,11 +17,9 @@ import java.util.stream.Collectors;
 /**
  * Created by yinhui on 2016/5/21.
  */
-public class DefaultBPNet<T extends TrainData> extends AbsBPNet {
+public class DefaultBPNet extends AbsBPNet<DefaultData> {
 
     private boolean trainMode = false;
-
-    private Iterator<T> trainData;
 
     private Evaluate eval;
 
@@ -34,17 +32,6 @@ public class DefaultBPNet<T extends TrainData> extends AbsBPNet {
      */
     Map<DefaultNode, Double> trainOutState = new HashMap<>();
 
-    @Override
-    public void train() {
-        trainMode = true;
-        for (int i = 0; i < maxLoop; ++i) {
-            while (trainData.hasNext()) {
-                T trainData = this.trainData.next();
-                train1(trainData.train(), trainData.lable());
-            }
-        }
-        trainMode = false;
-    }
 
     @Override
     public void persist() {
@@ -63,8 +50,7 @@ public class DefaultBPNet<T extends TrainData> extends AbsBPNet {
     }
 
 
-    @Override
-    public List<Double> predict(List<Double> input) {
+    public List<Double> predict0(List<Double> input) {
         if (input == null || input.size() == 0)
             return null;
         List<Double> l1 = new ArrayList<>();
@@ -116,7 +102,7 @@ public class DefaultBPNet<T extends TrainData> extends AbsBPNet {
      * @param lable
      */
     private void train1(List<Double> trainSet, List<Double> lable) {
-        List<Double> pRes = predict(trainSet);
+        List<Double> pRes = predict0(trainSet);
         List<Double> error = new ArrayList<>();
         for (int i = 0; i < pRes.size(); ++i) {
             error.add(errScale().reduce(pRes.get(i), lable.get(i)));
@@ -170,4 +156,21 @@ public class DefaultBPNet<T extends TrainData> extends AbsBPNet {
         }
     }
 
+    @Override
+    public void train(Iterator<DefaultData> train_data) {
+        trainMode = true;
+        for (int i = 0; i < maxLoop; ++i) {
+            while (train_data.hasNext()) {
+                DefaultData trainData = train_data.next();
+                train1(trainData.props(), trainData.lable());
+            }
+        }
+        trainMode = false;
+    }
+
+    @Override
+    public void predict(DefaultData data) {
+        List<Double> lable = predict0(data.props());
+        data.setLable(lable);
+    }
 }

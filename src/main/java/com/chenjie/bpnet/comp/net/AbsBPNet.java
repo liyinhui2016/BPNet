@@ -1,6 +1,7 @@
 package com.chenjie.bpnet.comp.net;
 
 import com.chenjie.bpnet.comp.Layer.*;
+import com.chenjie.bpnet.comp.data.IData;
 import com.chenjie.bpnet.comp.elem.DefaultNode;
 import com.chenjie.bpnet.comp.elem.DefaultWeight;
 
@@ -11,7 +12,7 @@ import java.util.List;
  * 主要功能是构建一个网路结构。
  * Created by yinhui on 2016/5/21.
  */
-public abstract class AbsBPNet implements IBPNet<InputLayer, HiddenLayer, OutputLayer> {
+public abstract class AbsBPNet<D extends IData> implements IBPNet<InputLayer, HiddenLayer, OutputLayer,D> {
 
     private InputLayer inputLayer;
     private OutputLayer outputLayer;

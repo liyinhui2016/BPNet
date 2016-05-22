@@ -5,12 +5,12 @@ import java.util.List;
 /**
  * Created by yinhui on 2016/5/22.
  */
-public interface TrainData {
+public interface IData {
     /**
      * 样本
      * @return
      */
-    List<Double> train();
+    List<Double> props();
 
     /**
      * 标签

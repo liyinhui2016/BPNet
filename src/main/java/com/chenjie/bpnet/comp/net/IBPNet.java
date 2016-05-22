@@ -1,6 +1,7 @@
 package com.chenjie.bpnet.comp.net;
 
 import com.chenjie.bpnet.comp.Layer.DefaultCommLayer;
+import com.chenjie.bpnet.comp.data.IData;
 import com.chenjie.bpnet.function.Reduce;
 
 import java.util.Collection;
@@ -10,7 +11,7 @@ import java.util.function.Supplier;
 /**
  * Created by yinhui on 2016/5/21.
  */
-public interface IBPNet<IN extends DefaultCommLayer,HI extends DefaultCommLayer ,OUT extends DefaultCommLayer> {
+public interface IBPNet<IN extends DefaultCommLayer,HI extends DefaultCommLayer ,OUT extends DefaultCommLayer,D extends IData> extends ITrainnable<D> {
 
     /**
      * 输入层
@@ -38,10 +39,6 @@ public interface IBPNet<IN extends DefaultCommLayer,HI extends DefaultCommLayer 
      */
     void setUp(int input,int [] hidden,int out);
 
-    /**
-     * bp训练
-     */
-    void train();
 
     /**
      * 持久化
@@ -66,12 +63,6 @@ public interface IBPNet<IN extends DefaultCommLayer,HI extends DefaultCommLayer 
      */
     Supplier<Double> weightInit();
 
-    /**
-     * 预测。
-     * @param input
-     * @return
-     */
-    List<Double> predict(List<Double> input);
 
     /**
      * 误差评判
