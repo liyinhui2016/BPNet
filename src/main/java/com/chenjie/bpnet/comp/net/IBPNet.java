@@ -1,6 +1,7 @@
 package com.chenjie.bpnet.comp.net;
 
 import com.chenjie.bpnet.comp.Layer.DefaultCommLayer;
+import com.chenjie.bpnet.function.Reduce;
 
 import java.util.Collection;
 import java.util.List;
@@ -71,5 +72,18 @@ public interface IBPNet<IN extends DefaultCommLayer,HI extends DefaultCommLayer 
      * @return
      */
     List<Double> predict(List<Double> input);
+
+    /**
+     * 误差评判
+     * @return
+     */
+    Reduce<Double> errScale();
+
+    /**
+     * 学习速率
+     * @return
+     */
+    double lambda();
+
 
 }

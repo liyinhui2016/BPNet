@@ -26,6 +26,5 @@ public class TestAbsBPNet {
         Assert.assertEquals(net.hiddenLayers().size()==2,true);
         Assert.assertEquals(net.hiddenLayers().get(0).size()==2,true);
         Assert.assertEquals(net.hiddenLayers().get(1).size()==4,true);
-
     }
 }
