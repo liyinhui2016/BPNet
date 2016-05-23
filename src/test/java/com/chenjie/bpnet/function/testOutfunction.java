@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by yinhui on 2016/5/21.
  */
-class TestOutfunction {
+public class TestOutfunction {
 
     @Test
     public void testIOutFunction(){

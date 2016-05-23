@@ -19,7 +19,7 @@ public interface IOutFunction {
      * @return
      */
     static double dfltProcess(double input){
-        return  1/(1+Math.exp(-input));
+        return  1/(1+Math.exp(-input/100));
     }
 
 }

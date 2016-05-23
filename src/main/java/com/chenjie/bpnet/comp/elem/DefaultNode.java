@@ -12,7 +12,7 @@ public class DefaultNode implements INode<DefaultWeight> {
 
     private  double theta;
 
-    private  List<DefaultWeight> frontWeights;
+    private transient   List<DefaultWeight> frontWeights;
 
     private  List<DefaultWeight> nextWeights;
 

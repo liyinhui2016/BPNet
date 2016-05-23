@@ -9,6 +9,8 @@ import com.chenjie.bpnet.function.Evaluate;
 import com.chenjie.bpnet.function.LinearCombine;
 import com.chenjie.bpnet.function.Reduce;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonParser;
 
 import java.util.*;
 import java.util.function.Supplier;
@@ -30,23 +32,24 @@ public class DefaultBPNet extends AbsBPNet<DefaultData> {
     /**
      * 训练模式下节点输出状态
      */
-    Map<DefaultNode, Double> trainOutState = new HashMap<>();
+    public Map<DefaultNode, Double> trainOutState = new HashMap<>();
 
 
     @Override
     public void persist() {
-        Gson gson = new Gson();
-        System.out.println(gson.toJson(this));
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        gson = new Gson();
+        System.out.println(gson.toJson(this.inputLayer()));
     }
 
     @Override
     public Supplier<Double> thetaInit() {
-        return () -> Math.random();
+        return () -> Math.random()*0.2-0.1;
     }
 
     @Override
     public Supplier<Double> weightInit() {
-        return () -> Math.random();
+        return () -> Math.random()*2-1;
     }
 
 
@@ -62,6 +65,7 @@ public class DefaultBPNet extends AbsBPNet<DefaultData> {
             l1.add(outValue);
             if (this.trainMode)
                 this.trainOutState.put(inputLayer().get(i), outValue);
+            System.out.println("inputOut : "+l1);
         }
         for (int i = 0; i < hiddenLayers().size(); ++i) {
             for (int j = 0; j < hiddenLayers().get(i).size(); ++j) {
@@ -69,9 +73,11 @@ public class DefaultBPNet extends AbsBPNet<DefaultData> {
                 List<Double> frontWeights = node.frontWeights().stream().map((w) -> w.weight()).collect(Collectors.toList());
                 double outValue = node.outFun().process(LinearCombine.combineNum(l1, frontWeights) + node.theta());
                 l2.add(outValue);
+
                 if (this.trainMode)
                     this.trainOutState.put(node, outValue);
             }
+            System.out.println(l2);
             l1.clear();
             t = l2;
             l2 = l1;
@@ -170,6 +176,7 @@ public class DefaultBPNet extends AbsBPNet<DefaultData> {
     @Override
     public DefaultData predict(DefaultData data) {
         List<Double> lable = predict0(data.props());
+        System.out.println(data.props()+"|||"+lable);
         DefaultData resData = new DefaultData();
         resData.setLable(lable);
         return resData;

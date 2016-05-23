@@ -6,7 +6,7 @@ package com.chenjie.bpnet.comp.elem;
 public class DefaultWeight implements IWeight<DefaultNode> {
 
     private double weight;
-    private  DefaultNode front;
+    private transient   DefaultNode front;
     private  DefaultNode next;
 
     @Override

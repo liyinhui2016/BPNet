@@ -26,25 +26,25 @@ public  class SampleTrainer<T extends ITrainnable> implements ITrainer<T,Default
     public void train(T model, Collection<DefaultData> dataSet) {
         model.enterTrainMode();
         for (int i = 0 ;i<maxLoop() ; ++ i){
-            for (DefaultData d:dataSet)
-                model.train(d);
             int r = 0;
             int f = 0;
             for(DefaultData d: dataSet){
                 IData data = model.predict(d);
-                double a = d.props().get(0);
-                double b = d.props().get(1);
-                double c = d.props().get(2);
-                System.out.println(data.lable()+"|||"+d.lable()+"|||"+ (b*b-4*a*c)+"|||"+d.props());
+//                System.out.println(data.lable()+"|||"+d.lable()+"|||"+d.props());
                 if(resEq().eq(data.lable(),d.lable()))
                     ++r;
                 else
                     ++f;
             }
+
+            ((DefaultBPNet)model).persist();
             logger.info(String.format("maxLoop :%s ,curLoop : %s ,minRate :%s ,curRate: %s ",maxLoop(),i,minRate(),eval().eval(r,f)));
             //正确率达标
             if(eval().eval(r,f)>minRate())
                 break;
+
+            for (DefaultData d:dataSet)
+                model.train(d);
         }
         model.leaveTrainMode();
     }
