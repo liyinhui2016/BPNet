@@ -2,7 +2,9 @@ package com.chenjie.bpnet.comp.net;
 
 import com.chenjie.bpnet.comp.data.IData;
 import com.chenjie.bpnet.function.Evaluate;
+import com.chenjie.bpnet.function.GenerEq;
 
+import java.util.Collection;
 import java.util.Iterator;
 
 /**
@@ -15,7 +17,7 @@ public interface ITrainer<T extends ITrainnable,D extends IData> {
      * @param model ： 模型
      * @param dataSet ： 数据集
      */
-    void train(T model, Iterator<D> dataSet);
+    void train(T model, Collection<D> dataSet);
 
     /**
      * 模型评判指标
@@ -35,6 +37,11 @@ public interface ITrainer<T extends ITrainnable,D extends IData> {
      */
     double minRate();
 
+    /**
+     * 相等评判
+     * @return
+     */
+    GenerEq resEq();
 
 
 }

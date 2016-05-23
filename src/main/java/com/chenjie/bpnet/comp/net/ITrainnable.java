@@ -15,12 +15,12 @@ public interface ITrainnable <D extends IData>{
      * 根据训练集训练模型
      * @param train_data
      */
-    void train(Iterator<D> train_data);
+    void train(Collection<D> train_data);
 
     /**
      * 预测
      * @param d
      */
-    void predict(D d);
+    D predict(D d);
 
 }

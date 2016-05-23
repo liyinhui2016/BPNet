@@ -157,20 +157,22 @@ public class DefaultBPNet extends AbsBPNet<DefaultData> {
     }
 
     @Override
-    public void train(Iterator<DefaultData> train_data) {
+    public void train(Collection<DefaultData> train_data) {
         trainMode = true;
         for (int i = 0; i < maxLoop; ++i) {
-            while (train_data.hasNext()) {
-                DefaultData trainData = train_data.next();
-                train1(trainData.props(), trainData.lable());
+//            while (train_data.hasNext()) {
+            for(DefaultData data:train_data){
+                train1(data.props(), data.lable());
             }
         }
         trainMode = false;
     }
 
     @Override
-    public void predict(DefaultData data) {
+    public DefaultData predict(DefaultData data) {
         List<Double> lable = predict0(data.props());
-        data.setLable(lable);
+        DefaultData resData = new DefaultData();
+        resData.setLable(lable);
+        return resData;
     }
 }
