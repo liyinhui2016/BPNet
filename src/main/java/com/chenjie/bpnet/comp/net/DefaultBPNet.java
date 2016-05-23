@@ -58,7 +58,10 @@ public class DefaultBPNet extends AbsBPNet<DefaultData> {
         List<Double> t;
         //输入
         for (int i = 0; i < inputLayer().size(); ++i) {
-            l1.add(inputLayer().get(i).outFun().process(input.get(i)));
+            double  outValue = inputLayer().get(i).outFun().process(input.get(i));
+            l1.add(outValue);
+            if (this.trainMode)
+                this.trainOutState.put(inputLayer().get(i), outValue);
         }
         for (int i = 0; i < hiddenLayers().size(); ++i) {
             for (int j = 0; j < hiddenLayers().get(i).size(); ++j) {
@@ -95,6 +98,7 @@ public class DefaultBPNet extends AbsBPNet<DefaultData> {
         return 0.3;
     }
 
+
     /**
      * 一次训练
      *
@@ -108,14 +112,14 @@ public class DefaultBPNet extends AbsBPNet<DefaultData> {
             error.add(errScale().reduce(pRes.get(i), lable.get(i)));
         }
         //计算隐藏层最后一层的错误
-        List<Double> frontErr = frontErr(outputLayer(), error);
+        List<Double> frontErr = frontErr(hiddenLayers().get(hiddenLayers().size()-1), error);
 
         //更新输出层权重和偏置值
         updateWeightAndTheta(outputLayer(), error);
 
-        for (int i = hiddenLayers().size() - 1; i >= 0; i--) {
+        for (int i = hiddenLayers().size() - 1; i > 0; i--) {
             error = frontErr;
-            frontErr = frontErr(hiddenLayers().get(i), error);
+            frontErr = frontErr(hiddenLayers().get(i-1), error);
             //更新权重和和偏置值
             updateWeightAndTheta(hiddenLayers().get(i), error);
         }
@@ -125,7 +129,7 @@ public class DefaultBPNet extends AbsBPNet<DefaultData> {
     /**
      * 计算网络上一层错误向量。
      *
-     * @param front  ：上一层网络
+     * @param front  ：当前层网络
      * @param curErr ：当前层错误
      * @return
      */
@@ -151,21 +155,16 @@ public class DefaultBPNet extends AbsBPNet<DefaultData> {
             nodes.get(i).setTheta(nodes.get(i).theta() + lambda() * curErr.get(i));
             List<DefaultWeight> ws = nodes.get(i).frontWeights();
             for (int j = 0; j < ws.size(); ++j) {
-                ws.get(j).setWeight(ws.get(j).weight() + trainOutState.get(ws.get(j).frontNode()) * curErr.get(i) * lambda());
+                ws.get(j).setWeight(ws.get(j).weight() +
+                        trainOutState.get( ws .get(j). frontNode()) * curErr.get(i) * lambda());
             }
         }
     }
 
     @Override
-    public void train(Collection<DefaultData> train_data) {
-        trainMode = true;
-        for (int i = 0; i < maxLoop; ++i) {
-//            while (train_data.hasNext()) {
-            for(DefaultData data:train_data){
-                train1(data.props(), data.lable());
-            }
-        }
-        trainMode = false;
+    public void train(DefaultData train_data) {
+        train1(train_data.props(), train_data.lable());
+//        System.out.println(this.trainOutState);
     }
 
     @Override
@@ -174,5 +173,16 @@ public class DefaultBPNet extends AbsBPNet<DefaultData> {
         DefaultData resData = new DefaultData();
         resData.setLable(lable);
         return resData;
+    }
+
+
+    @Override
+    public void enterTrainMode() {
+        this.trainMode = true;
+    }
+
+    @Override
+    public void leaveTrainMode() {
+        this.trainMode = false;
     }
 }

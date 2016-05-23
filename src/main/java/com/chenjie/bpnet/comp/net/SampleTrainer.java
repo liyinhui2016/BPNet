@@ -4,6 +4,7 @@ import com.chenjie.bpnet.comp.data.DefaultData;
 import com.chenjie.bpnet.comp.data.IData;
 import com.chenjie.bpnet.function.Evaluate;
 import com.chenjie.bpnet.function.GenerEq;
+import org.apache.log4j.Logger;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -12,8 +13,9 @@ import java.util.List;
 /**
  * Created by yinhui on 2016/5/22.
  */
-public abstract class SampleTrainer<T extends ITrainnable> implements ITrainer<T,DefaultData> {
+public  class SampleTrainer<T extends ITrainnable> implements ITrainer<T,DefaultData> {
 
+    private final  static Logger logger = Logger.getLogger(SampleTrainer.class);
 
     /**
      * 训练一个模型，使用简单训练法，后续实现 n-cross validate.
@@ -22,22 +24,29 @@ public abstract class SampleTrainer<T extends ITrainnable> implements ITrainer<T
      */
     @Override
     public void train(T model, Collection<DefaultData> dataSet) {
+        model.enterTrainMode();
         for (int i = 0 ;i<maxLoop() ; ++ i){
             for (DefaultData d:dataSet)
-                model.train(d.props());
+                model.train(d);
             int r = 0;
             int f = 0;
             for(DefaultData d: dataSet){
                 IData data = model.predict(d);
+                double a = d.props().get(0);
+                double b = d.props().get(1);
+                double c = d.props().get(2);
+                System.out.println(data.lable()+"|||"+d.lable()+"|||"+ (b*b-4*a*c)+"|||"+d.props());
                 if(resEq().eq(data.lable(),d.lable()))
                     ++r;
                 else
                     ++f;
             }
+            logger.info(String.format("maxLoop :%s ,curLoop : %s ,minRate :%s ,curRate: %s ",maxLoop(),i,minRate(),eval().eval(r,f)));
             //正确率达标
             if(eval().eval(r,f)>minRate())
                 break;
         }
+        model.leaveTrainMode();
     }
 
     /**
@@ -47,6 +56,15 @@ public abstract class SampleTrainer<T extends ITrainnable> implements ITrainer<T
     @Override
     public Evaluate eval() {
         return (int r,int f)->(double)r/(r+f);
+    }
+
+    @Override
+    public int maxLoop() {
+        return 20;
+    }
+    @Override
+    public double minRate() {
+        return 0.9;
     }
 
     @Override
