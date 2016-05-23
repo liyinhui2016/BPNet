@@ -44,12 +44,12 @@ public class DefaultBPNet extends AbsBPNet<DefaultData> {
 
     @Override
     public Supplier<Double> thetaInit() {
-        return () -> Math.random()*0.2-0.1;
+        return () -> Math.random();
     }
 
     @Override
     public Supplier<Double> weightInit() {
-        return () -> Math.random()*2-1;
+        return () -> Math.random();
     }
 
 
@@ -65,7 +65,7 @@ public class DefaultBPNet extends AbsBPNet<DefaultData> {
             l1.add(outValue);
             if (this.trainMode)
                 this.trainOutState.put(inputLayer().get(i), outValue);
-            System.out.println("inputOut : "+l1);
+//            System.out.println("inputOut : "+l1);
         }
         for (int i = 0; i < hiddenLayers().size(); ++i) {
             for (int j = 0; j < hiddenLayers().get(i).size(); ++j) {
@@ -77,7 +77,7 @@ public class DefaultBPNet extends AbsBPNet<DefaultData> {
                 if (this.trainMode)
                     this.trainOutState.put(node, outValue);
             }
-            System.out.println(l2);
+//            System.out.println("hidden : "+i +" : "+l2);
             l1.clear();
             t = l2;
             l2 = l1;
@@ -101,7 +101,7 @@ public class DefaultBPNet extends AbsBPNet<DefaultData> {
 
     @Override
     public double lambda() {
-        return 0.3;
+        return 0.5;
     }
 
 

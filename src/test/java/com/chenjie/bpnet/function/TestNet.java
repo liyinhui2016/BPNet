@@ -17,28 +17,24 @@ import java.util.function.Supplier;
  */
 public class TestNet {
 
-    int scale = 2;
-    int f = -1;
+    int scale =1;
+    int f = 0;
 
     @Test
     void testNet(){
         DefaultBPNet net = new DefaultBPNet();
-        net.setUp(1,new int []{1},1);
+        net.setUp(1,new int []{2,2,2},2);
 
         SampleTrainer<DefaultBPNet> trainer = new SampleTrainer<>();
         List<DefaultData> dataSet = mockData(20);
-        DefaultData d = new DefaultData();
-        d.setLable(Arrays.asList(1d));
-        d.setProps(Arrays.asList(1d));
-        System.out.println(net.predict(d));
-        d.setProps(Arrays.asList(-1d));
-        System.out.println(net.predict(d));
-        d.setProps(Arrays.asList(100d));
-        System.out.println(net.predict(d));
-        d.setProps(Arrays.asList(-100d));
-        System.out.println(net.predict(d));
-        net.persist();
-//        trainer.train(net,dataSet);
+//        DefaultData d = new DefaultData();
+//        d.setLable(Arrays.asList(0.8));
+//        d.setProps(Arrays.asList(0.8));
+//         net.predict(d);
+//        d.setProps(Arrays.asList(0.1));
+//         net.predict(d);
+//        net.persist();
+        trainer.train(net,dataSet);
 
     }
 
@@ -54,7 +50,7 @@ public class TestNet {
             props.add(a);//props.add(b);props.add(c);
 //            double detla = b*b-4*a*c;
             List<Double> lable = new ArrayList<>();
-            if(a>=0){
+            if(a>=0.8){
                 lable.add(1d);
                 lable.add(0d);
             }
