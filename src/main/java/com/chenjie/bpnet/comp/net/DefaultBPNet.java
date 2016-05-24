@@ -44,12 +44,12 @@ public class DefaultBPNet extends AbsBPNet<DefaultData> {
 
     @Override
     public Supplier<Double> thetaInit() {
-        return () -> Math.random();
+        return () -> Math.random()*2-1;
     }
 
     @Override
     public Supplier<Double> weightInit() {
-        return () -> Math.random();
+        return () -> Math.random()*2-1;
     }
 
 

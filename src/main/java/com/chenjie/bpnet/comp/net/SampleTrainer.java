@@ -30,14 +30,14 @@ public  class SampleTrainer<T extends ITrainnable> implements ITrainer<T,Default
             int f = 0;
             for(DefaultData d: dataSet){
                 IData data = model.predict(d);
-//                System.out.println(data.lable()+"|||"+d.lable()+"|||"+d.props());
+                logger.info(data.lable()+"|||"+d.lable()+"|||"+d.props());
                 if(resEq().eq(data.lable(),d.lable()))
                     ++r;
                 else
                     ++f;
             }
 
-            ((DefaultBPNet)model).persist();
+//            ((DefaultBPNet)model).persist();
             logger.info(String.format("maxLoop :%s ,curLoop : %s ,minRate :%s ,curRate: %s ",maxLoop(),i,minRate(),eval().eval(r,f)));
             //正确率达标
             if(eval().eval(r,f)>minRate())
@@ -60,11 +60,11 @@ public  class SampleTrainer<T extends ITrainnable> implements ITrainer<T,Default
 
     @Override
     public int maxLoop() {
-        return 20;
+        return 2000;
     }
     @Override
     public double minRate() {
-        return 0.9;
+        return 1.1;
     }
 
     @Override

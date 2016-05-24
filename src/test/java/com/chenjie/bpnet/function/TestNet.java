@@ -17,16 +17,16 @@ import java.util.function.Supplier;
  */
 public class TestNet {
 
-    int scale =1;
-    int f = 0;
+    int scale =2;
+    int f = -1;
 
     @Test
     void testNet(){
         DefaultBPNet net = new DefaultBPNet();
-        net.setUp(1,new int []{2,2,2},2);
+        net.setUp(2,new int []{5,5,5},2);
 
         SampleTrainer<DefaultBPNet> trainer = new SampleTrainer<>();
-        List<DefaultData> dataSet = mockData(200);
+//        List<DefaultData> dataSet = mockData(1);
 //        DefaultData d = new DefaultData();
 //        d.setLable(Arrays.asList(0.8));
 //        d.setProps(Arrays.asList(0.8));
@@ -34,7 +34,12 @@ public class TestNet {
 //        d.setProps(Arrays.asList(0.1));
 //         net.predict(d);
 //        net.persist();
-        trainer.train(net,dataSet);
+        trainer.train(net,Arrays.asList(new DefaultData(Arrays.asList(10d,5d),Arrays.asList(0d,1d))));
+        trainer.train(net,Arrays.asList(new DefaultData(Arrays.asList(5d,15d),Arrays.asList(1d,0d))));
+
+        System.out.println(net.predict(new DefaultData(Arrays.asList(10d,5d),Arrays.asList(0d,1d))).lable());
+        System.out.println(net.predict(new DefaultData(Arrays.asList(5d,10d),Arrays.asList(0d,1d))).lable());
+        System.out.println(net.predict(new DefaultData(Arrays.asList(100d,50d),Arrays.asList(0d,1d))).lable());
 
     }
 
@@ -43,25 +48,8 @@ public class TestNet {
         for (int i = 0 ;i<size ;++ i){
             DefaultData d = new DefaultData();
             dataSet.add(d);
-            double a = randGet().get();
-            double b = randGet().get();
-            double c = randGet().get();
-            List<Double> props= new ArrayList<>();
-            props.add(a);//props.add(b);props.add(c);
-//            double detla = b*b-4*a*c;
-            List<Double> lable = new ArrayList<>();
-            lable.add(1d);
-            lable.add(0d);
-//            if(a>=0.8){
-//                lable.add(1d);
-//                lable.add(0d);
-//            }
-//            else{
-//                lable.add(0d);
-//                lable.add(1d);
-//            }
-            d.setLable(lable);
-            d.setProps(props);
+            d.setLable(Arrays.asList(0d,1d));
+            d.setProps(Arrays.asList(10d,5d));
         }
         return  dataSet;
     }

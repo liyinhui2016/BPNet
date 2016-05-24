@@ -11,6 +11,13 @@ public class DefaultData implements IData {
 
     private List<Double> lable;
 
+    public DefaultData(){}
+
+    public DefaultData(List<Double> props ,List<Double> lable){
+        this.props = props;
+        this.lable = lable;
+    }
+
     @Override
     public List<Double> props() {
         return props;
