@@ -26,7 +26,7 @@ public class TestNet {
         net.setUp(1,new int []{2,2,2},2);
 
         SampleTrainer<DefaultBPNet> trainer = new SampleTrainer<>();
-        List<DefaultData> dataSet = mockData(20);
+        List<DefaultData> dataSet = mockData(200);
 //        DefaultData d = new DefaultData();
 //        d.setLable(Arrays.asList(0.8));
 //        d.setProps(Arrays.asList(0.8));
@@ -50,14 +50,16 @@ public class TestNet {
             props.add(a);//props.add(b);props.add(c);
 //            double detla = b*b-4*a*c;
             List<Double> lable = new ArrayList<>();
-            if(a>=0.8){
-                lable.add(1d);
-                lable.add(0d);
-            }
-            else{
-                lable.add(0d);
-                lable.add(1d);
-            }
+            lable.add(1d);
+            lable.add(0d);
+//            if(a>=0.8){
+//                lable.add(1d);
+//                lable.add(0d);
+//            }
+//            else{
+//                lable.add(0d);
+//                lable.add(1d);
+//            }
             d.setLable(lable);
             d.setProps(props);
         }

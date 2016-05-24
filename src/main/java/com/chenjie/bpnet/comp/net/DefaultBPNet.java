@@ -176,7 +176,7 @@ public class DefaultBPNet extends AbsBPNet<DefaultData> {
     @Override
     public DefaultData predict(DefaultData data) {
         List<Double> lable = predict0(data.props());
-        System.out.println(data.props()+"|||"+lable);
+//        System.out.println(data.props()+"|||"+lable);
         DefaultData resData = new DefaultData();
         resData.setLable(lable);
         return resData;
