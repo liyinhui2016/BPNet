@@ -17,29 +17,24 @@ import java.util.function.Supplier;
  */
 public class TestNet {
 
-    int scale =2;
-    int f = -1;
+    int scale =1;
+    int f = 0;
 
     @Test
     void testNet(){
         DefaultBPNet net = new DefaultBPNet();
-        net.setUp(2,new int []{5,5,5},2);
+        net.setUp(2,new int []{5,5,5},1);
 
         SampleTrainer<DefaultBPNet> trainer = new SampleTrainer<>();
-//        List<DefaultData> dataSet = mockData(1);
-//        DefaultData d = new DefaultData();
-//        d.setLable(Arrays.asList(0.8));
-//        d.setProps(Arrays.asList(0.8));
-//         net.predict(d);
-//        d.setProps(Arrays.asList(0.1));
-//         net.predict(d);
-//        net.persist();
-        trainer.train(net,Arrays.asList(new DefaultData(Arrays.asList(10d,5d),Arrays.asList(0d,1d))));
-        trainer.train(net,Arrays.asList(new DefaultData(Arrays.asList(5d,15d),Arrays.asList(1d,0d))));
+        List<DefaultData> dataSet = mockData(10);
+//        trainer.train(net,Arrays.asList(
+//                new DefaultData(Arrays.asList(10d,5d),Arrays.asList(0d,1d)),
+//                new DefaultData(Arrays.asList(5d,15d),Arrays.asList(1d,0d)))
+//        );
 
-        System.out.println(net.predict(new DefaultData(Arrays.asList(10d,5d),Arrays.asList(0d,1d))).lable());
-        System.out.println(net.predict(new DefaultData(Arrays.asList(5d,10d),Arrays.asList(0d,1d))).lable());
-        System.out.println(net.predict(new DefaultData(Arrays.asList(100d,50d),Arrays.asList(0d,1d))).lable());
+        trainer.train(net,dataSet);
+        System.out.println(net.predict(new DefaultData(Arrays.asList(0.8,0.3),Arrays.asList(0d))).lable());
+        System.out.println(net.predict(new DefaultData(Arrays.asList(0.3,0.8),Arrays.asList(1d))).lable());
 
     }
 
@@ -48,8 +43,11 @@ public class TestNet {
         for (int i = 0 ;i<size ;++ i){
             DefaultData d = new DefaultData();
             dataSet.add(d);
-            d.setLable(Arrays.asList(0d,1d));
-            d.setProps(Arrays.asList(10d,5d));
+            double a = randGet().get();
+            double b = randGet().get();
+//            double c = randGet().get();
+            d.setProps(Arrays.asList(a,b));
+            d.setLable(Arrays.asList(a>b?1d:0d));
         }
         return  dataSet;
     }

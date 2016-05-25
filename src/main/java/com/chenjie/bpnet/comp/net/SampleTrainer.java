@@ -44,7 +44,7 @@ public  class SampleTrainer<T extends ITrainnable> implements ITrainer<T,Default
                 break;
 
             for (DefaultData d:dataSet)
-                model.train(d);
+                model.train(d,(double)1/dataSet.size());
         }
         model.leaveTrainMode();
     }

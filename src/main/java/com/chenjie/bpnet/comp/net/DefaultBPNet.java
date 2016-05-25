@@ -111,7 +111,7 @@ public class DefaultBPNet extends AbsBPNet<DefaultData> {
      * @param trainSet
      * @param lable
      */
-    private void train1(List<Double> trainSet, List<Double> lable) {
+    private void train1(List<Double> trainSet, List<Double> lable,double dataWeight) {
         List<Double> pRes = predict0(trainSet);
         List<Double> error = new ArrayList<>();
         for (int i = 0; i < pRes.size(); ++i) {
@@ -121,13 +121,13 @@ public class DefaultBPNet extends AbsBPNet<DefaultData> {
         List<Double> frontErr = frontErr(hiddenLayers().get(hiddenLayers().size()-1), error);
 
         //更新输出层权重和偏置值
-        updateWeightAndTheta(outputLayer(), error);
+        updateWeightAndTheta(outputLayer(), error,dataWeight);
 
         for (int i = hiddenLayers().size() - 1; i > 0; i--) {
             error = frontErr;
             frontErr = frontErr(hiddenLayers().get(i-1), error);
             //更新权重和和偏置值
-            updateWeightAndTheta(hiddenLayers().get(i), error);
+            updateWeightAndTheta(hiddenLayers().get(i), error,dataWeight);
         }
     }
 
@@ -155,21 +155,21 @@ public class DefaultBPNet extends AbsBPNet<DefaultData> {
      * @param curLayer 当前层
      * @param curErr   当前层错误向量。
      */
-    private void updateWeightAndTheta(DefaultCommLayer curLayer, List<Double> curErr) {
+    private void updateWeightAndTheta(DefaultCommLayer curLayer, List<Double> curErr,double dataWeight) {
         List<DefaultNode> nodes = curLayer.nodes();
         for (int i = 0; i < nodes.size(); ++i) {
             nodes.get(i).setTheta(nodes.get(i).theta() + lambda() * curErr.get(i));
             List<DefaultWeight> ws = nodes.get(i).frontWeights();
             for (int j = 0; j < ws.size(); ++j) {
                 ws.get(j).setWeight(ws.get(j).weight() +
-                        trainOutState.get( ws .get(j). frontNode()) * curErr.get(i) * lambda());
+                        trainOutState.get( ws .get(j). frontNode()) * curErr.get(i) * lambda() * dataWeight);
             }
         }
     }
 
     @Override
-    public void train(DefaultData train_data) {
-        train1(train_data.props(), train_data.lable());
+    public void train(DefaultData train_data,double dataWeight) {
+        train1(train_data.props(), train_data.lable(),dataWeight);
 //        System.out.println(this.trainOutState);
     }
 

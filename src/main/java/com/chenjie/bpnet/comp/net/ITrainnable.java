@@ -14,8 +14,9 @@ public interface ITrainnable <D extends IData>{
     /**
      * 根据训练集训练模型
      * @param train_data
+     * @param dataWeight :该数据权重
      */
-    void train(D train_data);
+    void train(D train_data,double dataWeight);
 
     /**
      * 预测
