@@ -23,7 +23,7 @@ public class TestNet {
     @Test
     void testNet(){
         DefaultBPNet net = new DefaultBPNet();
-        net.setUp(2,new int []{10},2);
+        net.setUp(2,new int []{2},1);
 
         SampleTrainer<DefaultBPNet> trainer = new SampleTrainer<>(net);
         List<DefaultData> dataSet = mockData(10);
@@ -47,7 +47,7 @@ public class TestNet {
             double b = randGet().get();
 //            double c = randGet().get();
             d.setProps(Arrays.asList(a,b));
-            d.setLable(Arrays.asList(a+b,a-b));
+            d.setLable(Arrays.asList(a*b));
         }
         return  dataSet;
     }
