@@ -30,4 +30,7 @@ public interface IOutFunction {
         return  input;
     }
 
+    static double orginProcess(double input){
+        return  input;
+    }
 }

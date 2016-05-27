@@ -34,4 +34,9 @@ public interface ITrainnable <D extends IData>{
      */
     void leaveTrainMode();
 
+    /**
+     * 获取标准误差
+     * @return
+     */
+    double mse();
 }

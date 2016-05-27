@@ -17,4 +17,5 @@ public interface IData {
      * @return
      */
     List<Double> lable();
+
 }

@@ -23,18 +23,18 @@ public class TestNet {
     @Test
     void testNet(){
         DefaultBPNet net = new DefaultBPNet();
-        net.setUp(2,new int []{5,5,5},1);
+        net.setUp(2,new int []{10},2);
 
-        SampleTrainer<DefaultBPNet> trainer = new SampleTrainer<>();
+        SampleTrainer<DefaultBPNet> trainer = new SampleTrainer<>(net);
         List<DefaultData> dataSet = mockData(10);
 //        trainer.train(net,Arrays.asList(
 //                new DefaultData(Arrays.asList(10d,5d),Arrays.asList(0d,1d)),
 //                new DefaultData(Arrays.asList(5d,15d),Arrays.asList(1d,0d)))
 //        );
 
-        trainer.train(net,dataSet);
-        System.out.println(net.predict(new DefaultData(Arrays.asList(0.8,0.3),Arrays.asList(0d))).lable());
-        System.out.println(net.predict(new DefaultData(Arrays.asList(0.3,0.8),Arrays.asList(1d))).lable());
+        trainer.train(dataSet);
+        System.out.println(net.predict(new DefaultData(Arrays.asList(0.8,0.3),Arrays.asList())).lable());
+        System.out.println(net.predict(new DefaultData(Arrays.asList(0.3,0.8),Arrays.asList())).lable());
 
     }
 
@@ -47,7 +47,7 @@ public class TestNet {
             double b = randGet().get();
 //            double c = randGet().get();
             d.setProps(Arrays.asList(a,b));
-            d.setLable(Arrays.asList(a>b?1d:0d));
+            d.setLable(Arrays.asList(a+b,a-b));
         }
         return  dataSet;
     }

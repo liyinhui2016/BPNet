@@ -19,7 +19,7 @@ public class DefaultNode implements INode<DefaultWeight> {
 
     @Override
     public IOutFunction outFun() {
-        return IOutFunction::dfltProcess;
+        return IOutFunction::orginProcess;
     }
 
     @Override

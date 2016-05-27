@@ -14,11 +14,15 @@ public interface ITrainer<T extends ITrainnable,D extends IData> {
 
     /**
      * 训练模型
-     * @param model ： 模型
      * @param dataSet ： 数据集
      */
-    void train(T model, Collection<D> dataSet);
+    void train( Collection<D> dataSet);
 
+    /**
+     * 获取要训练的模型
+     * @return
+     */
+    T model();
     /**
      * 模型评判指标
      * @return
@@ -42,6 +46,12 @@ public interface ITrainer<T extends ITrainnable,D extends IData> {
      * @return
      */
     GenerEq resEq();
+
+    /**
+     * 均方误差
+     * @return
+     */
+    double mse();
 
 
 }

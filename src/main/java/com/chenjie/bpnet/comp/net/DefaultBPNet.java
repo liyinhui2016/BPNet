@@ -29,6 +29,8 @@ public class DefaultBPNet extends AbsBPNet<DefaultData> {
 
     private double minRate;
 
+    double mse;
+
     /**
      * 训练模式下节点输出状态
      */
@@ -96,12 +98,13 @@ public class DefaultBPNet extends AbsBPNet<DefaultData> {
 
     @Override
     public Reduce<Double> errScale() {
-        return (o, t) -> o * (1 - o) * (t - o);
+//        return (o, t) -> o * (1 - o) * (t - o);
+        return (o, t) ->  (t - o);
     }
 
     @Override
     public double lambda() {
-        return 0.5;
+        return 0.1;
     }
 
 
@@ -191,5 +194,10 @@ public class DefaultBPNet extends AbsBPNet<DefaultData> {
     @Override
     public void leaveTrainMode() {
         this.trainMode = false;
+    }
+
+    @Override
+    public double mse() {
+        return mse;
     }
 }
